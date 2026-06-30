@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS 3D - Battle Royale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer"></div>
+    
+    <!-- HUD -->
+    <div id="hud">
+        <div id="crosshair"></div>
+        
+        <div id="healthBar">
+            <div id="health"></div>
+            <span id="healthText">100/100</span>
+        </div>
+        
+        <div id="ammoCount">
+            <span id="currentAmmo">30</span> / <span id="maxAmmo">120</span>
+        </div>
+        
+        <div id="weaponInfo">
+            <span id="weaponName">Rifle de Assalto</span>
+            <span id="weaponDamage">30 DMG</span>
+        </div>
 
+        <div id="weaponSelector">
+            <div class="weapon-slot" data-weapon="0">
+                <span class="slot-key">1</span>
+                <span class="slot-name">PISTOLA</span>
+            </div>
+            <div class="weapon-slot" data-weapon="1">
+                <span class="slot-key">2</span>
+                <span class="slot-name">SUBMETRALHADORA</span>
+            </div>
+            <div class="weapon-slot" data-weapon="2">
+                <span class="slot-key">3</span>
+                <span class="slot-name">ESPINGARDA</span>
+            </div>
+        </div>
+
+        <div id="minimap">
+            <canvas id="minimapCanvas"></canvas>
+        </div>
+
+        <div id="scoreBoard">
+            <span>Inimigos: <span id="enemyCount">5</span></span>
+        </div>
+    </div>
+
+    <!-- Menu Inicial -->
+    <div id="mainMenu" class="menu active">
+        <div class="menu-content">
+            <h1>⚔️ FPS 3D</h1>
+            <p>Battle Royale - Eliminatória</p>
+            <button id="playBtn" class="menu-btn">▶ INICIAR JOGO</button>
+            <button id="settingsBtn" class="menu-btn">⚙ CONTROLES</button>
+            <div id="controls" class="controls-info hidden">
+                <p><strong>WASD</strong> - Movimento</p>
+                <p><strong>Mouse</strong> - Câmera</p>
+                <p><strong>Clique</strong> - Atirar</p>
+                <p><strong>1, 2, 3</strong> - Trocar Arma</p>
+                <p><strong>R</strong> - Recarregar</p>
+                <p><strong>ESPAÇO</strong> - Pular</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Derrota -->
+    <div id="gameOverScreen" class="menu">
+        <div class="menu-content">
+            <h1>💀 DERROTA</h1>
+            <p id="gameOverMessage">Você foi derrotado!</p>
+            <p id="killCount">Abates: 0</p>
+            <button id="restartBtn" class="menu-btn">↻ JOGAR NOVAMENTE</button>
+            <button id="menuBtn" class="menu-btn">← VOLTAR AO MENU</button>
+        </div>
+    </div>
+
+    <!-- Tela de Vitória -->
+    <div id="victoryScreen" class="menu">
+        <div class="menu-content">
+            <h1>🏆 VITÓRIA!</h1>
+            <p id="victoryMessage">Você é o último jogador em pé!</p>
+            <p id="finalKillCount">Abates: 0</p>
+            <button id="restartBtn2" class="menu-btn">↻ JOGAR NOVAMENTE</button>
+            <button id="menuBtn2" class="menu-btn">← VOLTAR AO MENU</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
