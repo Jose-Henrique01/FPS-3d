@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS 3D - Fortnite Style</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer"></div>
+    
+    <!-- HUD -->
+    <div id="hud">
+        <div id="crosshair"></div>
+        <div id="healthBar">
+            <div id="health"></div>
+            <span id="healthText">100</span>
+        </div>
+        <div id="ammoCount">
+            <span id="currentAmmo">30</span> / <span id="maxAmmo">120</span>
+        </div>
+        <div id="weaponInfo">
+            <span id="weaponName">Rifle Assalto</span>
+        </div>
+        <div id="minimap"></div>
+    </div>
+
+    <!-- Menu Inicial -->
+    <div id="mainMenu" class="menu">
+        <div class="menu-content">
+            <h1>FPS 3D</h1>
+            <p>Battle Royale Style</p>
+            <button id="playBtn" class="menu-btn">INICIAR JOGO</button>
+            <button id="settingsBtn" class="menu-btn">CONFIGURAÇÕES</button>
+        </div>
+    </div>
+
+    <!-- Script Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
