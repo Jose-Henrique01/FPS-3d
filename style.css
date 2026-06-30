@@ -1,0 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background: #1a1a1a;
+    color: #fff;
+    overflow: hidden;
+}
+
+#gameContainer {
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+}
+
+/* ===== HUD ===== */
+#hud {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Crosshair */
+#crosshair {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(0, 255, 0, 0.7);
+    border-radius: 50%;
+}
+
+#crosshair::before,
+#crosshair::after {
+    content: '';
+    position: absolute;
+    background: rgba(0, 255, 0, 0.7);
+}
+
+#crosshair::before {
+    width: 2px;
+    height: 10px;
+    left: 50%;
+    top: -15px;
+    transform: translateX(-50%);
+}
+
+#crosshair::after {
+    width: 2px;
+    height: 10px;
+    left: 50%;
+    bottom: -15px;
+    transform: translateX(-50%);
+}
+
+/* Health Bar */
+#healthBar {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    width: 200px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#health {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #00ff00, #ffff00, #ff4444);
+    transition: width 0.3s;
+}
+
+#healthText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 101;
+}
+
+/* Ammo Count */
+#ammoCount {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+}
+
+#currentAmmo {
+    color: #00ff00;
+    font-size: 28px;
+}
+
+#maxAmmo {
+    color: #888;
+    font-size: 20px;
+}
+
+/* Weapon Info */
+#weaponInfo {
+    position: absolute;
+    bottom: 70px;
+    right: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border: 2px solid #ffaa00;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#weaponName {
+    font-weight: bold;
+    color: #ffaa00;
+}
+
+#weaponDamage {
+    font-size: 12px;
+    color: #ff4444;
+}
+
+/* Weapon Selector */
+#weaponSelector {
+    position: absolute;
+    bottom: 120px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.weapon-slot {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border: 2px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.weapon-slot:hover,
+.weapon-slot.active {
+    border-color: #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.slot-key {
+    background: #00ff00;
+    color: #000;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.slot-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #00ff00;
+}
+
+/* Minimap */
+#minimap {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 200px;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#minimapCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Score Board */
+#scoreBoard {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 25px;
+    border: 2px solid #ffaa00;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffaa00;
+}
+
+/* ===== MENUS ===== */
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.5s;
+}
+
+.menu.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.menu-content {
+    text-align: center;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.menu h1 {
+    font-size: 64px;
+    margin-bottom: 10px;
+    color: #00ff00;
+    text-shadow: 0 0 20px #00ff00;
+}
+
+.menu p {
+    font-size: 20px;
+    color: #ffaa00;
+    margin-bottom: 40px;
+}
+
+.menu-btn {
+    display: block;
+    width: 300px;
+    margin: 15px auto;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #00ff00, #00cc00);
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.menu-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
+    background: linear-gradient(135deg, #00ff00, #00ff00);
+}
+
+.menu-btn:active {
+    transform: scale(0.98);
+}
+
+.controls-info {
+    margin-top: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px 30px;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #00ff00;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.controls-info p {
+    margin: 8px 0;
+    color: #fff;
+}
+
+.controls-info strong {
+    color: #ffaa00;
+}
+
+.controls-info.hidden {
+    display: none;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+    #healthBar,
+    #ammoCount,
+    #weaponInfo,
+    #weaponSelector,
+    #minimap,
+    #scoreBoard {
+        font-size: 14px;
+    }
+
+    .menu h1 {
+        font-size: 40px;
+    }
+
+    .menu-btn {
+        width: 200px;
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
